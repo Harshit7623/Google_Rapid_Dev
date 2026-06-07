@@ -1,6 +1,6 @@
 const { spawn } = require('child_process');
 
-const child = spawn('npx', ['-y', '@modelcontextprotocol/server-gitlab'], {
+const child = spawn('npx', ['--no-install', '@modelcontextprotocol/server-gitlab'], {
     env: process.env,
     stdio: ['pipe', 'pipe', 'inherit'] // stdin, stdout, stderr
 });
