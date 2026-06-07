@@ -61,7 +61,7 @@ export const triggerAgentWorkflow = async (projectId: number, mrId: number) => {
 
     const transport = new StdioClientTransport({
         command: 'node',
-        args: [path.join(__dirname, '..', 'utils', 'mcpWrapper.cjs')],
+        args: [path.join(process.cwd(), 'utils', 'mcpWrapper.cjs')],
         env: {
             ...process.env,
             GITLAB_PERSONAL_ACCESS_TOKEN: process.env.GITLAB_TOKEN,
