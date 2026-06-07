@@ -11,11 +11,11 @@ dotenv.config();
 const PROJECT_ID = process.env.GOOGLE_CLOUD_PROJECT_ID || '';
 const LOCATION = process.env.GOOGLE_CLOUD_LOCATION?.trim() || 'us-central1';
 
-const ai = new GoogleGenAI({
-    vertexai: true,
-    project: PROJECT_ID,
-    location: LOCATION,
-});
+const ai = new GoogleGenAI(
+    process.env.GOOGLE_GENAI_KEY
+        ? { apiKey: process.env.GOOGLE_GENAI_KEY }
+        : { vertexai: true, project: PROJECT_ID, location: LOCATION }
+);
 
 function log(message: string) {
     console.log(message);
