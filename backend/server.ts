@@ -45,9 +45,11 @@ app.get('/health', (req, res) => {
 });
 
 // Start Server
-httpServer.listen(PORT as number, '0.0.0.0', () => {
-    console.log(`[Backend] AccessOps Agent server running on port ${PORT}`);
-    console.log(`[Backend] Waiting for GitLab webhooks at /api/webhook`);
-});
+if (process.env.NODE_ENV !== 'test') {
+    httpServer.listen(PORT as number, '0.0.0.0', () => {
+        console.log(`[Backend] AccessOps Agent server running on port ${PORT}`);
+        console.log(`[Backend] Waiting for GitLab webhooks at /api/webhook`);
+    });
+}
 
 export { app };

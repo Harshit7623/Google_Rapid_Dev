@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { app } from '../server';
+import { app, io } from '../server';
 import * as agentService from '../services/agentService';
 
 // Mock the agentService so we don't actually trigger the workflow during tests
@@ -9,6 +9,11 @@ jest.mock('../services/agentService', () => ({
 
 describe('Webhook Routes', () => {
     
+    afterAll((done) => {
+        io.close();
+        done();
+    });
+
     beforeEach(() => {
         jest.clearAllMocks();
     });
