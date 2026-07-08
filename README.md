@@ -5,15 +5,23 @@
 ![Google GenAI](https://img.shields.io/badge/Google-GenAI-orange.svg)
 ![Google Cloud Run](https://img.shields.io/badge/Google-Cloud%20Run-blue.svg)
 ![GitLab](https://img.shields.io/badge/GitLab-Webhook-red.svg)
+![Tests](https://github.com/Harshit7623/Google_Rapid_Dev/actions/workflows/jest.yml/badge.svg)
 
-**AccessOps** is an intelligent, autonomous Multi-Agent Orchestrator built for the Google Rapid Dev Hackathon. 
+---
 
-Whenever a developer opens a Merge Request in GitLab, this robust backend server intercepts the webhook, spins up a Gemini 2.5 Pro **Orchestrator**, and delegates tasks to specialized sub-agents:
-1. **A11y Agent:** Fixes WCAG 2.1 AA violations (missing aria-labels, contrast ratios).
-2. **Security Agent:** Scans for hardcoded secrets and XSS vulnerabilities.
-3. **Performance Agent:** Audits React rendering patterns and DOM size.
+Security vulnerabilities, accessibility violations, and performance anti-patterns are caught *after* developers ship them — costing hours of manual code review on every merge request. **AccessOps** eliminates that bottleneck entirely: the moment a developer opens a GitLab Merge Request, a fleet of specialized Gemini 2.5 Pro AI agents automatically audits the diff, writes precise code fixes, and commits them directly back to the branch — without any human in the loop. The result is a complete, timestamped compliance report in Google Docs and a running audit log in Google Sheets, generated before the first human reviewer even opens the MR.
 
-The sub-agents autonomously write fixes, push a consolidated commit directly to the branch, and automatically generate Google Workspace Compliance Reports detailing their work!
+---
+
+![AccessOps Live Dashboard — AgentFlow graph, live agent stream, and CommitGraph](./assets/accessops-dashboard.gif)
+
+---
+
+## Results
+
+Results data from production traffic has not yet been collected. The system was validated against live GitLab merge requests during development and hackathon testing. Quantitative metrics (average remediation time, token cost, false-positive rate) will be published once production telemetry is aggregated.
+
+---
 
 ## Features
 - **Multi-Agent Orchestration:** A single Gemini instance acts as a manager, coordinating specialized sub-agents dynamically.
@@ -83,6 +91,16 @@ graph LR
 ## Cloud Deployment
 The repository includes a fully automated GitHub Actions pipeline (`.github/workflows/deploy.yml`). 
 Simply configure your GitHub repository secrets (`GITLAB_TOKEN`, Google Auth Keys) and pushing to the `master` branch will automatically compile the TypeScript, build the Nginx/Docker images, and push them live to Google Cloud Run!
+
+## Testing
+
+Tests are written in **Jest + ts-jest** and live in `backend/tests/`. The CI workflow (`.github/workflows/jest.yml`) runs the full suite on every push and pull request to `master`.
+
+To run tests locally:
+```bash
+cd backend
+npm test
+```
 
 ## Documentation
 - [ARCHITECTURE.md](./ARCHITECTURE.md): Detailed sequence diagrams for the Agent Loop and Compliance Reporting, plus component breakdowns.
